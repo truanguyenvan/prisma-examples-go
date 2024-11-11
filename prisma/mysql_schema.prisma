@@ -1,0 +1,30 @@
+datasource db {
+  provider = "mysql"
+  url      = "file:dev.db"
+}
+
+generator client {
+  provider = "go run github.com/steebchen/prisma-client-go"
+  binaryTargets   = ["native"]
+  previewFeatures = ["fullTextSearch"]
+  engineType = "binary"
+}
+
+model User {
+  id        String   @id @default(uuid()) // MySQL UUID generation
+  createdAt DateTime @default(now())
+  firstName String?
+  lastName  String?
+  email     String   @unique
+  posts     Post[]
+}
+
+model Post {
+  id        String   @id @default(uuid()) // MySQL UUID generation
+  createdAt DateTime @default(now())
+  title     String
+  body      String?
+  views     Int      @default(0)
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?
+}
