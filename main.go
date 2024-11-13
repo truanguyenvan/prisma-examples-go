@@ -6,6 +6,7 @@ import (
 	"log"
 	"os/exec"
 	"prisma-examples-go/examples"
+	"prisma-examples-go/examples/raw/mongo/aggregateRaw"
 	"prisma-examples-go/examples/raw/mongo/commandRaw"
 	"prisma-examples-go/examples/raw/mongo/findRaw"
 	"prisma-examples-go/examples/raw/mysql"
@@ -116,10 +117,10 @@ func runPrismaExample(dbType string) {
 	// mongodb
 	case "raw-mongo-command-1":
 		err = commandRaw.CreateUser(ctx, client)
-	case "raw-mongo-command-2":
-		err = commandRaw.FindUsers(ctx, client)
 	case "raw-mongo-find-1":
 		err = findRaw.FindUsers(ctx, client)
+	case "raw-mongo-aggregate-1":
+		err = aggregateRaw.FindUsers(ctx, client)
 	default:
 		log.Fatalf("Unsupported example number: %s", exampleNum)
 	}
